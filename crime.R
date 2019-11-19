@@ -1,11 +1,20 @@
 
 
 library(tidyverse)
-library(plotly)
+library(ggplot2)
+library(ggmap)
+library(maps)
+library(mapdata)
+#library(plotly)
 library(sf)
 
-crime <- read_csv("garda_stations.csv")
-population <- read_csv("population.csv")
+
+# source:  https://data.gov.ie/dataset/crimes-at-garda-stations-level-2010-2016
+crime <- read_csv("datasets/garda_stations.csv")
+# source:  https://en.wikipedia.org/wiki/List_of_Irish_counties_by_population
+population <- read_csv("datasets/population.csv")
+# source: http://census.cso.ie/censusasp/saps/boundaries/ED_SA%20Disclaimer1%20-%20bkup20173107.htm
+ireland_map <- st_read("shape-files/Census2011_Admin_Counties_generalised20m.shp")
 
 dat <-
   crime %>%
@@ -98,14 +107,11 @@ fdat <- do.call("rbind",lapply(ldat, extractMaxchange) ) %>%
   rename(cname=county)
 
 
-library(ggplot2)
-library(ggmap)
-library(maps)
-library(mapdata)
 
 
 
-ireland_map <- st_read("shape-files/Census2011_Admin_Counties_generalised20m.shp")
+
+
 
 ireland_map <- 
   ireland_map %>%
