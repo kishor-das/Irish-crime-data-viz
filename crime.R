@@ -1,13 +1,21 @@
+# This scripe file was created to produce a graph of 
+# Type of crime with biggest increase (2004-2015) 
+# among different counties in Ireland
+# 
+# If you have any suggestions or comments email: kishorisrt@gmail.com
+# 
 
+#####################
+# loading libraries
+#####################
 
 library(tidyverse)
 library(ggplot2)
-library(ggmap)
-library(maps)
-library(mapdata)
-#library(plotly)
 library(sf)
 
+################
+# sourcing data
+################
 
 # source:  https://data.gov.ie/dataset/crimes-at-garda-stations-level-2010-2016
 crime <- read_csv("datasets/garda_stations.csv")
@@ -15,6 +23,10 @@ crime <- read_csv("datasets/garda_stations.csv")
 population <- read_csv("datasets/population.csv")
 # source: http://census.cso.ie/censusasp/saps/boundaries/ED_SA%20Disclaimer1%20-%20bkup20173107.htm
 ireland_map <- st_read("shape-files/Census2011_Admin_Counties_generalised20m.shp")
+
+###########################################################################################
+# Creating a data set of change in crime from 2004 to 2015 by county for each type of crime
+###########################################################################################
 
 dat <-
   crime %>%
@@ -95,9 +107,12 @@ dat <-
   gather("crime_type", "change",-county)%>%
   mutate(crime_type=str_sub(crime_type, end=-8))
 
+##########################################################################
+# creating a data frame with type of crime with max change for each county
+##########################################################################
+
 ldat <- split(dat,dat$county)  
 
-#x <- ldat[[1]]
 extractMaxchange <- function(x){
   ind_max <- x$change == max(x$change)
   return(x[ind_max,])
@@ -106,12 +121,9 @@ extractMaxchange <- function(x){
 fdat <- do.call("rbind",lapply(ldat, extractMaxchange) ) %>%
   rename(cname=county)
 
-
-
-
-
-
-
+######################################
+# merging crime data with shape file
+######################################
 
 ireland_map <- 
   ireland_map %>%
@@ -155,6 +167,10 @@ ireland_map[20, c("cname")] <- "Dublin"
 
 ireland <- full_join(ireland_map, fdat, by=c("cname"))
 
+#####################################
+# creating nice label for each county
+#####################################
+
 index_unique <- !duplicated(ireland_map$cname)
 
 
@@ -169,7 +185,9 @@ label_dat <-
                            `theft`="theft"))%>%
   mutate(clabel=paste0(cname,"\n(",crime_type,")")) 
 
-
+###################
+# plotting the data 
+###################
 
 ggplot(ireland) +
   geom_sf(aes(fill = change))+
@@ -182,9 +200,9 @@ ggplot(ireland) +
         axis.text=element_blank(),
         axis.ticks=element_blank())
 
-
-
-
+###################
+# end of the script
+###################
 
 
 
