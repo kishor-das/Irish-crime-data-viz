@@ -1,6 +1,13 @@
 # Irish crime data visualization
 
-_Context_
-This repository is for displaying different kind of crime occured in Ireland during the last decade.
+__Context__
+This visualization was created to present at a useR meetup in Galway. 
+
+__Data source__
+The data were obtained from the following source:
+
+https://data.gov.ie/dataset/crimes-at-garda-stations-level-2010-2016
+
+
 
 
