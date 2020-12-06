@@ -1,6 +1,5 @@
 # Irish crime data visualization
 
-[](https://travis-ci.org/hadley/adv-r)
 
 __Context__
 
