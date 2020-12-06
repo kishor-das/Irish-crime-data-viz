@@ -13,7 +13,9 @@ https://data.gov.ie/dataset/crimes-at-garda-stations-level-2010-2016
 __Required packages__
 
 ```
-tidyverse
+library(tidyverse)
+library(ggplot2)
+library(sf)
 ```
 
 
