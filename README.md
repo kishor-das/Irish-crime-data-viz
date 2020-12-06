@@ -1,6 +1,6 @@
 # Irish crime data visualization
 
-[![Build Status](https://travis-ci.org/hadley/adv-r.svg?branch=master)](https://travis-ci.org/hadley/adv-r)
+[](https://travis-ci.org/hadley/adv-r)
 
 __Context__
 
