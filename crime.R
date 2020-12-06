@@ -2,8 +2,7 @@
 # Type of crime with biggest increase (2004-2015) 
 # among different counties in Ireland
 # 
-# If you have any suggestions or comments email: kishorisrt@gmail.com
-# 
+ 
 
 #####################
 # loading libraries
